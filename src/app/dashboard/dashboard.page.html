@@ -1,0 +1,161 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Note Keuangan</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngFor="let item of dataKeuangan">
+    <ion-item color="primary" >
+      <ion-label color = "dark">
+        {{item.jenis}}
+        <p>{{item.deskripsi}}</p>
+        <p>{{item.jumlah}}</p>
+      </ion-label>
+      <ion-button shape="round" color="danger" slot="end" (click)="hapusKeuangan(item.id)">
+        Delete
+      </ion-button>
+      <ion-button color="warning" shape="round" expand="block" (click)="open_modal_edit(true,item.id)">
+        Edit
+      </ion-button>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    
+  </ion-card>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="open_modal_tambah(true)" expand="block">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!--tambah -->
+  <ion-modal [isOpen]="modal_tambah">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Tambah Keuangan</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="Jenis Pengeluaran/Pemasukan"
+            labelPlacement="floating"
+            label="Jenis Pengeluaran/Pemasukan"  fill="solid" 
+            required
+            [(ngModel)]="jenis"
+            placeholder="Masukan Jenis Catatan Pemasukan/Pengeluaran"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Deskripsi"
+            labelPlacement="floating"
+            label="Deskripsi"  fill="solid" 
+            required
+            [(ngModel)]="deskripsi"
+            placeholder="Masukkan Deskripsi"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Jumlah"
+            labelPlacement="floating"
+            label="Jumlah"  fill="solid" 
+            required
+            [(ngModel)]="jumlah"
+            placeholder="Masukkan Jumlah"
+            type="number"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="button"
+              (click)="tambahKeuangan()"
+              color="primary"
+              shape="full"
+              expand="block"
+              >Tambah Catatan
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- edit -->
+  <ion-modal [isOpen]="modal_edit">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Edit Keuangan</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="Jenis Catatan Keuangan Pemasukan/Pengeluaran"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="jenis"
+            placeholder="Masukan Jenis Catatan Pemasukan/Pengeluaran"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Deskripsi"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="deskripsi"
+            placeholder="Masukan Deskripsi"
+            type="text"
+          >
+          </ion-input>
+          
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Jumlah"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="jumlah"
+            placeholder="Masukan Jumlah"
+            type="number"
+          >
+          </ion-input>
+          
+        </ion-item>
+        <ion-input required [(ngModel)]="id" type="hidden"> </ion-input>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="button"
+              (click)="editKeuangan()"
+              color="primary"
+              shape="full"
+              expand="block"
+              >Edit Data
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
